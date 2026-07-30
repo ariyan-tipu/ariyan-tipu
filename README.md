@@ -122,12 +122,13 @@ and Deep Learning, plus a 60-credit individual project.
 **BSc Mathematics with Data Science**, City, University of London. Awarded a 2:1
 (upper second-class honours)
 
-*Dissertation: linear, non-linear and solitary waves, and their application to
-traffic flow.* Traffic jams behave as travelling waves: a disturbance propagates
-backwards through a queue while the cars themselves move forwards. The work
-covered the linear and non-linear wave equations, the viscous and inviscid
-Burgers' equations, solitary wave solutions, and what each says about how
-congestion forms and persists.
+*Group dissertation: linear, non-linear and solitary waves, and their
+application to traffic flow.* Traffic jams behave as travelling waves: a
+disturbance propagates backwards through a queue while the cars themselves move
+forwards. The work covered the linear and non-linear wave equations,
+D'Alembert's solution, KdV solitary waves, the viscous and inviscid Burgers'
+equations, the method of characteristics, the Rankine-Hugoniot jump condition
+and conservation laws in integral and differential form.
 
 *A-levels:* Mathematics · Further Mathematics · Computer Science
 
