@@ -115,6 +115,10 @@ quietly wrong.
 
 **MSc Data Science**, King's College London, from September 2026
 
+*Modules include:* Data Mining · Databases, Data Warehousing and Information
+Retrieval · Statistics for Data Analysis · Pattern Recognition, Neural Networks
+and Deep Learning, plus a 60-credit individual project.
+
 **BSc Mathematics with Data Science**, City, University of London. Awarded a 2:1
 (upper second-class honours)
 
