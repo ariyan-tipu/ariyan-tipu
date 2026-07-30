@@ -22,14 +22,7 @@ London, UK · Right to work in the UK, no visa sponsorship required
 
 </div>
 
----
 
-Three public projects below, each with continuous integration, a real test suite
-and a written record of the decisions behind it. What connects them is a
-preference for evidence over assertion: a concurrency guarantee proven by tests
-that force the race, a model selection rule fixed before the holdout was scored,
-and a language model whose own verifier reports that it is not fit to be trusted
-unsupervised.
 
 ## Projects
 
