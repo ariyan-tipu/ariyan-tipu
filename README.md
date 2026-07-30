@@ -1,16 +1,172 @@
-## Hi there 👋
+<div align="center">
 
-<!--
-**ariyan-tipu/ariyan-tipu** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+# Ariyan Tipu
 
-Here are some ideas to get you started:
+**BSc Mathematics with Data Science (2:1), City, University of London**
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+**MSc Data Science, King's College London, from September 2026**
+
+Data science and machine learning engineering. I build systems that measure
+themselves, and I report what the measurement says.
+
+**Applying for 2027 graduate schemes and summer 2027 internships.**
+Also available for short-term work before the MSc begins this September, and part time roles during my MSc
+
+London, UK · Right to work in the UK, no visa sponsorship required
+
+[ariyantipu39@gmail.com](mailto:ariyantipu39@gmail.com) ·
+[LinkedIn](https://www.linkedin.com/in/ariyantipu/) ·
+[**Live demo of the orders dashboard**](https://ariyan-tipu.github.io/realtime-orders-platform/)
+
+</div>
+
+---
+
+## In one paragraph
+
+I am a mathematics graduate moving into data science, with machine learning
+engineering as the longer-term direction. Three public projects below, each
+with continuous integration, a real test suite and a written record of the
+decisions behind it. What connects them is a preference for evidence over
+assertion: a concurrency guarantee proven by tests that force the race, a
+model selection rule fixed before the holdout was scored, and a language model
+whose own verifier reports that it is not fit to be trusted unsupervised.
+
+---
+
+## Projects
+
+### 1. [Customer retention on 99,441 real e-commerce orders](https://github.com/ariyan-tipu/olist-customer-retention)
+
+`PySpark` · `scikit-learn` · `R` · `MATLAB` · `FastAPI` · `Docker`
+
+Churn modelling, survival analysis and experiment design on the Olist
+Brazilian e-commerce dataset, across nine relational tables.
+
+- Predicted repeat purchase at a **0.975% base rate**, reaching **2.0x to 2.45x
+  lift in the top decile**, which captures 20 to 24% of all repeaters at twice
+  the background rate.
+- Fixed the selection metric to cross-validated **average precision** before
+  scoring the holdout, then applied it even though gradient boosting won
+  ROC-AUC (0.652 against 0.611) while losing average precision. At 1% positives
+  ROC-AUC flatters; the ROC and precision-recall curves rank the two models in
+  opposite orders from the same predictions, and both curves are in the repository.
+- Ran **Kaplan-Meier, Cox and Weibull AFT** survival analysis on 93,350 spells
+  at **98.1% right-censoring**. A poor first review cuts the repurchase hazard
+  by 27% (HR 0.727, p = 0.0002); late delivery loses significance once the
+  review is controlled, because it does its damage through the review.
+- Re-derived the Weibull fit in **MATLAB** by maximising the censored
+  log-likelihood from first principles, agreeing with R's `survreg` to
+  **2e-07** on every parameter.
+- Showed a realistic +15% uplift test would need **76,101 customers per arm**,
+  more than a quarter's entire intake, and recommended against running it as
+  specified.
+- Enforced point-in-time correctness so features only use what was knowable at
+  the cutoff. The tests caught a real bug: naive datetime literals crossed a
+  British daylight-saving change and shifted every boundary by an hour.
+
+### 2. [A language model checked against a chess engine](https://github.com/ariyan-tipu/opening-theory-engine)
+
+`PyTorch` · `Transformers` · `PEFT` · `TRL` · `JAX` · `FastAPI` · `Stockfish`
+
+A small model fine-tuned to explain chess opening moves, where every factual
+claim is verified against engine ground truth instead of a human rating.
+
+- Built the full **QLoRA supervised fine-tuning then DPO** pipeline for
+  Qwen2.5-3B-Instruct in 4-bit, sized to run on a free Colab T4, and executed
+  it. Adapters, curves and results are published in the
+  [v0.1.0 release](https://github.com/ariyan-tipu/opening-theory-engine/releases/tag/v0.1.0).
+- Generated preference pairs from **engine evidence with no human labels**: a
+  deterministic parser extracts each claim and checks it against Stockfish's
+  evaluation, principal variation and material arithmetic.
+- Raised format compliance from **1% to 100%** and verdict accuracy from
+  **0.29 to 0.50**.
+- **The finding that matters most:** only **2% of responses** pass full verification,
+  and the tuned models quote an illegal move in roughly **96%** of their engine
+  lines. The verifier I built is what caught that. DPO's gain over supervised
+  fine-tuning (claim precision 0.5721 to 0.5745) is too small for one 150-position
+  run with a single seed to call real, and the repository says so.
+- The same verifier runs in three places, so training, evaluation and serving
+  all mean the same thing. Serving is an explain-verify-regenerate loop that
+  ships a verification report with every response.
+
+### 3. [Real-time orders platform](https://github.com/ariyan-tipu/realtime-orders-platform) · [live demo](https://ariyan-tipu.github.io/realtime-orders-platform/)
+
+`Python` · `Django` · `FastAPI` · `PostgreSQL` · `C++17` · `Vue 3` · `TypeScript` · `Docker`
+
+An order and inventory backend built around the parts that are easy to get
+quietly wrong.
+
+- Made overselling impossible under concurrent load by taking row-level locks
+  in **primary-key order**, so lock-ordering deadlocks cannot occur. Proven by
+  a test that releases **eight simultaneous transactions against five units**
+  through a barrier: exactly five succeed, stock lands at zero, never negative.
+- Streamed order and stock events to a Vue dashboard over WebSockets fed by
+  PostgreSQL `LISTEN/NOTIFY`, emitted inside the committing transaction, so no
+  event can exist for work that rolled back. This removes the dual-write race a
+  message broker would introduce, and the repository documents where the
+  guarantee stops: the channel is transactional but not durable.
+- Wrote the pick-path optimiser **twice**, in Python and C++17 via pybind11,
+  with a 150-case randomised parity suite asserting exact equality and a
+  Held-Karp solver bounding solution quality. The C++ engine is roughly **100x
+  faster** on large orders and releases the GIL while it runs.
+- Cut a ranked per-warehouse aggregation from about **105 ms to 4 ms** with a
+  partial covering index, documented with the query plans, including the first
+  index design the planner correctly ignored.
+- Closed a real access-control hole found in review: the lifecycle endpoint had
+  inherited a permissive default, so any anonymous caller could cancel an order
+  and move stock. Access control is now a project-wide default, every
+  environment switch fails closed, and CI fails the build on any Django
+  deployment-check warning.
+
+---
+
+## Education
+
+**MSc Data Science**, King's College London, from September 2026
+
+**BSc Mathematics with Data Science**, City, University of London. Awarded 2:1
+
+*Dissertation: linear, non-linear and solitary waves, and their application to
+traffic flow.* Traffic jams behave as travelling waves: a disturbance
+propagates backwards through a queue while the cars themselves move forwards.
+The work covered the linear and non-linear wave equations, solitary wave
+solutions, and what each says about how congestion forms and persists. It is
+the same instinct as the three projects above, applied to a physical system
+instead of a dataset: model the mechanism, then check the model against what
+the system actually does.
+
+*Relevant modules:* Machine Learning · Statistics and Probability 2 ·
+Techniques of Data Science · Principles of Data Science
+
+## Experience
+
+- **Lead Tutor:** redesigned the A-Level Further Mathematics curriculum I
+  taught from, and mentored students one to one and in small groups.
+- **Bright Network Internship Experience UK (Technology):** a short virtual
+  work-experience programme covering how technology teams operate, with a group
+  project.
+
+## Technical skills
+
+**Languages** Python · SQL · R · C++ · TypeScript · MATLAB
+
+**Data and ML** PyTorch · Transformers · PEFT (LoRA/QLoRA) · TRL · scikit-learn ·
+PySpark · JAX · pandas · NumPy · statsmodels
+
+**Engineering** Django · FastAPI · PostgreSQL · Redis · Docker · Vue 3 · pytest ·
+Git · GitHub Actions
+
+**Statistics** survival analysis (Kaplan-Meier, Cox, AFT) · experiment design and
+power analysis · imbalanced classification · calibration · maximum likelihood
+
+**Spoken languages** English (native) · Bengali (fluent)
+
+## Contact
+
+[ariyantipu39@gmail.com](mailto:ariyantipu39@gmail.com) ·
+[linkedin.com/in/ariyantipu](https://www.linkedin.com/in/ariyantipu/) · London, UK
+
+Open to data science, machine learning and data engineering roles. Applying for
+**2027 graduate schemes and summer 2027 internships**, and available for
+short-term work before the MSc begins this September.
