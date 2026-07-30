@@ -116,20 +116,23 @@ quietly wrong.
 **MSc Data Science**, King's College London, from September 2026
 
 **BSc Mathematics with Data Science**, City, University of London. Awarded a 2:1
-(upper second class honours)
+(upper second-class honours)
 
 *Dissertation: linear, non-linear and solitary waves, and their application to
 traffic flow.* Traffic jams behave as travelling waves: a disturbance propagates
 backwards through a queue while the cars themselves move forwards. The work
-covered the linear and non-linear wave equations, solitary wave solutions, and
-what each says about how congestion forms and persists.
+covered the linear and non-linear wave equations, the viscous and inviscid
+Burgers' equations, solitary wave solutions, and what each says about how
+congestion forms and persists.
+
+*A-levels:* Mathematics · Further Mathematics · Computer Science
 
 *Relevant modules:* Machine Learning · Statistics and Probability 2 ·
 Techniques of Data Science · Principles of Data Science
 
 ## Experience
 
-- **Lead Tutor:** redesigned the A-Level Further Mathematics curriculum I taught
+- **Lead Tutor:** redesigned the A-level Further Mathematics curriculum I taught
   from, and mentored students one to one and in small groups.
 - **Bright Network Internship Experience UK (Technology):** a short virtual
   insight programme covering how technology teams operate, with a group project.
