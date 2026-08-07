@@ -60,7 +60,7 @@ A small model fine-tuned to explain chess opening moves, where each claim the
 parser recognises is checked against Stockfish at depth 14 rather than against a
 human rating.
 
-- **Built the evaluation harness first, and it is what the project is for.**
+- **Built the evaluation suite first, and it is what the project is for.**
   After fine-tuning, only **2% of responses** pass full verification, and the
   tuned models quote an illegal move in roughly **95%** of their engine lines.
   Nothing subjective would have caught that.
