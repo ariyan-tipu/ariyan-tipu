@@ -61,6 +61,12 @@ model deployed and watched.
   its place twice, catching a load generator sending unrepresentative traffic
   and, separately, showing that a three second latency tail sat outside the
   process rather than inside it.
+- Ran the same pipeline unchanged on a **Databricks** serverless cluster and
+  checked it rather than assuming: all eight row counts and base rates came
+  back identical to the laptop. Getting there surfaced two platform
+  differences worth knowing, a session timezone that would have moved every
+  cutoff, and a caching call the platform refuses, which was an optimisation
+  all along and is now treated as one.
 - Ran **Kaplan-Meier, Cox and Weibull AFT** survival analysis on 93,350 spells
   at **98.1% right-censoring**. A poor first review cuts the repurchase hazard
   by 27% (HR 0.727, p = 0.0002); late delivery loses significance once the
