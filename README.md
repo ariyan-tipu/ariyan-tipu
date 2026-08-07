@@ -4,7 +4,7 @@
 
 **BSc Mathematics with Data Science (2:1, upper second class), City, University of London**
 
-**MSc Data Science, King's College London, from September 2026**
+**MSc Statistics, King's College London, from September 2026**
 
 I work in Python and SQL across applied machine learning, statistical modelling
 and data engineering.
