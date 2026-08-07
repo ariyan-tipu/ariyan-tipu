@@ -26,12 +26,14 @@ London, UK · Right to work in the UK, no visa sponsorship required
 
 ## Projects
 
-### 1. [Customer retention on 99,441 real e-commerce orders](https://github.com/ariyan-tipu/olist-customer-retention)
+### 1. [Customer retention on 99,441 real e-commerce orders](https://github.com/ariyan-tipu/olist-customer-retention) · [live scorer](http://35.178.111.113/readyz)
 
-`PySpark` · `scikit-learn` · `R` · `MATLAB` · `FastAPI` · `Docker`
+`PySpark` · `scikit-learn` · `TensorFlow` · `R` · `MATLAB` · `AWS` ·
+`Databricks` · `FastAPI` · `Docker`
 
 Churn modelling, survival analysis and experiment design on the Olist
-Brazilian e-commerce dataset, across nine relational tables.
+Brazilian e-commerce dataset, across nine relational tables, with the chosen
+model deployed and watched.
 
 - Predicted repeat purchase at a **0.975% base rate**, reaching **2.0x to 2.45x
   lift in the top decile**, which captures 20 to 24% of all repeaters at twice
@@ -41,6 +43,24 @@ Brazilian e-commerce dataset, across nine relational tables.
   (0.652 against 0.611) while losing average precision. At 1% positives ROC-AUC
   flatters: the ROC and precision-recall curves rank the two models in opposite
   orders from the same predictions, and both curves are in the repository.
+- **A Keras neural network led cross-validation and did not survive contact
+  with the holdout.** Its lead was 0.0364 against 0.0318, half of its own
+  fold-to-fold deviation, with all three candidates inside that deviation; out
+  of time it came last on ROC-AUC, and it costs 402 MB resident and 33 ms a
+  request against roughly 1 ms. Selection now breaks ties towards the cheapest
+  model to serve, using training-side information only, so the linear model
+  ships and the metrics file records why.
+- Deployed the scorer to **AWS EC2**, reading its model from a private
+  versioned **S3** bucket with the SHA-256 verified before loading, on an
+  instance that holds no credentials because it authenticates through an **IAM**
+  role scoped to one prefix.
+- Instrumented it with exact latency percentiles and a per-feature
+  **population stability index** against the training distribution, published to
+  **CloudWatch**. Measured on a `t3.micro`: **2,951 rows a second at 94.9 ms
+  median and 295.3 ms at the 99th percentile**, no failures. The monitor earned
+  its place twice, catching a load generator sending unrepresentative traffic
+  and, separately, showing that a three second latency tail sat outside the
+  process rather than inside it.
 - Ran **Kaplan-Meier, Cox and Weibull AFT** survival analysis on 93,350 spells
   at **98.1% right-censoring**. A poor first review cuts the repurchase hazard
   by 27% (HR 0.727, p = 0.0002); late delivery loses significance once the
@@ -113,11 +133,11 @@ quietly wrong.
 
 ## Education
 
-**MSc Data Science**, King's College London, from September 2026
+**MSc Statistics**, King's College London, from September 2026
 
-*Modules include:* Data Mining · Databases, Data Warehousing and Information
-Retrieval · Statistics for Data Analysis · Pattern Recognition, Neural Networks
-and Deep Learning, plus a 60-credit individual project.
+*Modules include:* Machine Learning · Elements of Statistical Learning ·
+Computational Statistics · Bayesian Statistics, plus a 60-credit individual
+project.
 
 **BSc Mathematics with Data Science**, City, University of London. Awarded a 2:1
 (upper second-class honours)
@@ -146,11 +166,11 @@ Techniques of Data Science · Principles of Data Science
 
 **Languages** Python · SQL · R · C++ · TypeScript · MATLAB
 
-**Data and ML** PyTorch · Transformers · PEFT (LoRA/QLoRA) · TRL · scikit-learn ·
-PySpark · JAX · pandas · NumPy · statsmodels
+**Data and ML** PyTorch · TensorFlow · Transformers · PEFT (LoRA/QLoRA) · TRL ·
+scikit-learn · PySpark · JAX · pandas · NumPy · statsmodels
 
-**Engineering** Django · FastAPI · PostgreSQL · Redis · Docker · Vue 3 · pytest ·
-Git · GitHub Actions
+**Cloud and engineering** AWS (EC2, S3, IAM, CloudWatch) · Databricks · Django ·
+FastAPI · PostgreSQL · Redis · Docker · Vue 3 · pytest · Git · GitHub Actions
 
 **Statistics** survival analysis (Kaplan-Meier, Cox, AFT) · experiment design and
 power analysis · imbalanced classification · calibration · maximum likelihood
