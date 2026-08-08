@@ -26,7 +26,7 @@ London, UK · Right to work in the UK, no visa sponsorship required
 
 ## Projects
 
-### 1. [Customer retention on 99,441 real e-commerce orders](https://github.com/ariyan-tipu/olist-customer-retention) · [live scorer](http://35.178.111.113/readyz)
+### 1. [Customer retention on 99,441 real e-commerce orders](https://github.com/ariyan-tipu/olist-customer-retention) · [live scorer](http://35.178.111.113/readyz), running into early 2027
 
 `PySpark` · `scikit-learn` · `TensorFlow` · `R` · `MATLAB` · `AWS` ·
 `Databricks` · `FastAPI` · `Docker`
@@ -60,7 +60,9 @@ model deployed and watched.
   median and 295.3 ms at the 99th percentile**, no failures. The monitor earned
   its place twice, catching a load generator sending unrepresentative traffic
   and, separately, showing that a three second latency tail sat outside the
-  process rather than inside it.
+  process rather than inside it. The instance runs on a free plan that closes
+  itself in early 2027, so every measurement is committed to the repository
+  and stays checkable after the address stops answering.
 - Ran the same pipeline unchanged on a **Databricks** serverless cluster and
   checked it rather than assuming: all eight row counts and base rates came
   back identical to the laptop. Getting there surfaced two platform
@@ -173,7 +175,7 @@ Techniques of Data Science · Principles of Data Science
 **Languages** Python · SQL · R · C++ · TypeScript · MATLAB
 
 **Data and ML** PyTorch · TensorFlow · Transformers · PEFT (LoRA/QLoRA) · TRL ·
-scikit-learn · PySpark · JAX · pandas · NumPy · statsmodels
+scikit-learn · PySpark · JAX · pandas · NumPy · Weights and Biases
 
 **Cloud and engineering** AWS (EC2, S3, IAM, CloudWatch) · Databricks · Django ·
 FastAPI · PostgreSQL · Redis · Docker · Vue 3 · pytest · Git · GitHub Actions
