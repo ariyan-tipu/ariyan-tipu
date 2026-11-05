@@ -2,22 +2,22 @@
 
 # Ariyan Tipu
 
-**BSc Mathematics with Data Science (2:1, upper second class), City, University of London**
+MSc Statistics, King's College London, 2026 to 2027
 
-**MSc Statistics, King's College London, from September 2026**
+BSc Mathematics with Data Science (2:1), City St George's, University of London
 
 I work in Python and SQL across applied machine learning, statistical modelling
 and data engineering.
 
-**Applying for 2027 graduate data, machine learning and software roles.**
-Available for short-term work before the MSc begins this September, and for
-part-time London roles during it.
+Applying for 2027 graduate roles in data, machine learning and software. I'm
+also applying for a funded PhD in statistics starting in October 2027.
+Available for part-time London roles during the MSc.
 
 London, UK · Right to work in the UK, no visa sponsorship required
 
 [ariyantipu39@gmail.com](mailto:ariyantipu39@gmail.com) ·
 [LinkedIn](https://www.linkedin.com/in/ariyantipu/) ·
-[**Dashboard demo**](https://ariyan-tipu.github.io/realtime-orders-platform/)
+[Dashboard demo](https://ariyan-tipu.github.io/realtime-orders-platform/)
 (runs in the browser on simulated events)
 
 </div>
@@ -35,49 +35,47 @@ Churn modelling, survival analysis and experiment design on the Olist
 Brazilian e-commerce dataset, across nine relational tables, with the chosen
 model deployed and watched.
 
-- Predicted repeat purchase at a **0.975% base rate**, reaching **2.0x to 2.45x
-  lift in the top decile**, which captures 20 to 24% of all repeaters at twice
-  the background rate.
-- Fixed the selection metric to cross-validated **average precision** before
+- Predicted repeat purchase at a 0.975% base rate, reaching 2.0x to 2.45x lift
+  in the top decile, which captures 20 to 24% of all repeaters at twice the
+  background rate.
+- Fixed the selection metric to cross-validated average precision before
   scoring the holdout, then applied it even though gradient boosting won ROC-AUC
   (0.652 against 0.611) while losing average precision. At 1% positives ROC-AUC
   flatters: the ROC and precision-recall curves rank the two models in opposite
   orders from the same predictions, and both curves are in the repository.
-- **A Keras neural network led cross-validation and did not survive contact
-  with the holdout.** Its lead was 0.0364 against 0.0318, half of its own
-  fold-to-fold deviation, with all three candidates inside that deviation; out
-  of time it came last on ROC-AUC, and it costs 402 MB resident and 33 ms a
-  request against roughly 1 ms. Selection now breaks ties towards the cheapest
-  model to serve, using training-side information only, so the linear model
-  ships and the metrics file records why.
-- Deployed the scorer to **AWS EC2**, reading its model from a private
-  versioned **S3** bucket with the SHA-256 verified before loading, on an
-  instance that holds no credentials because it authenticates through an **IAM**
-  role scoped to one prefix.
-- Instrumented it with exact latency percentiles and a per-feature
-  **population stability index** against the training distribution, published to
-  **CloudWatch**. Measured on a `t3.micro`: **2,951 rows a second at 94.9 ms
-  median and 295.3 ms at the 99th percentile**, no failures. The monitor earned
-  its place twice, catching a load generator sending unrepresentative traffic
-  and, separately, showing that a three second latency tail sat outside the
-  process rather than inside it. The instance runs on a free plan that closes
-  itself in early 2027, so every measurement is committed to the repository
-  and stays checkable after the address stops answering.
-- Ran the same pipeline unchanged on a **Databricks** serverless cluster and
-  checked it rather than assuming: all eight row counts and base rates came
-  back identical to the laptop. Getting there surfaced two platform
-  differences worth knowing, a session timezone that would have moved every
-  cutoff, and a caching call the platform refuses, which was an optimisation
-  all along and is now treated as one.
-- Ran **Kaplan-Meier, Cox and Weibull AFT** survival analysis on 93,350 spells
-  at **98.1% right-censoring**. A poor first review cuts the repurchase hazard
-  by 27% (HR 0.727, p = 0.0002); late delivery loses significance once the
-  review is controlled, because it does its damage through the review.
-- Re-derived the Weibull fit in **MATLAB** by maximising the censored
-  log-likelihood from first principles, agreeing with R's `survreg` to **2e-07**
-  on every parameter.
-- Showed a realistic +15% uplift test would need **76,101 customers per arm**,
-  more than a quarter's entire intake, and recommended against running it as
+- A Keras neural network led cross-validation and did not survive contact with
+  the holdout. Its lead was 0.0364 against 0.0318, half of its own fold-to-fold
+  deviation, with all three candidates inside that deviation; out of time it
+  came last on ROC-AUC, and it costs 402 MB resident and 33 ms a request against
+  roughly 1 ms. Selection now breaks ties towards the cheapest model to serve,
+  using training-side information only, so the linear model ships and the
+  metrics file records why.
+- Deployed the scorer to AWS EC2, reading its model from a private versioned S3
+  bucket with the SHA-256 verified before loading. The instance holds no
+  credentials; it authenticates through an IAM role scoped to one prefix.
+- Instrumented it with exact latency percentiles and a per-feature population
+  stability index against the training distribution, published to CloudWatch.
+  Measured on a `t3.micro`: 2,951 rows a second at 94.9 ms median and 295.3 ms
+  at the 99th percentile, no failures. The monitor earned its place twice,
+  catching a load generator sending unrepresentative traffic and, separately,
+  showing that a three second latency tail sat outside the process. The
+  instance runs on a free plan that closes itself in early 2027, so every
+  measurement is committed to the repository and stays checkable after the
+  address stops answering.
+- Ran the same pipeline unchanged on a Databricks serverless cluster, and all
+  eight row counts and base rates came back identical to the laptop. Two
+  platform differences came up on the way: a session timezone that would have
+  moved every cutoff, and a caching call the platform refuses, which the
+  pipeline now treats as optional.
+- Ran Kaplan-Meier, Cox and Weibull AFT survival analysis on 93,350 spells at
+  98.1% right-censoring. A poor first review cuts the repurchase hazard by 27%
+  (HR 0.727, p = 0.0002). Late delivery loses significance once the review is
+  controlled for, which suggests most of its effect runs through the review.
+- Re-derived the Weibull fit in MATLAB by maximising the censored
+  log-likelihood from first principles, agreeing with R's `survreg` to 2e-07 on
+  every parameter.
+- Showed a realistic +15% uplift test would need 76,101 customers per arm, more
+  than a quarter's entire intake, and recommended against running it as
   specified.
 
 ### 2. [A language model checked against a chess engine](https://github.com/ariyan-tipu/opening-theory-engine)
@@ -88,19 +86,19 @@ A small model fine-tuned to explain chess opening moves, where each claim the
 parser recognises is checked against Stockfish at depth 14 rather than against a
 human rating.
 
-- **Built the evaluation suite first, and it is what the project is for.**
-  After fine-tuning, only **2% of responses** pass full verification, and the
-  tuned models quote an illegal move in roughly **95%** of their engine lines.
-  Nothing subjective would have caught that.
-- Built and ran the full **QLoRA supervised fine-tuning then DPO** pipeline for
+- I built the evaluation suite first, and it is what the project is for. After
+  fine-tuning, only 2% of responses pass full verification, and the tuned models
+  quote an illegal move in roughly 95% of their engine lines. Nothing subjective
+  would have caught that.
+- Built and ran the full QLoRA supervised fine-tuning then DPO pipeline for
   Qwen2.5-3B-Instruct in 4-bit on a free Colab T4. Adapters, curves and results
   are published in the
   [v0.1.0 release](https://github.com/ariyan-tipu/opening-theory-engine/releases/tag/v0.1.0).
-- Generated preference pairs from **engine evidence with no human labels**: a
+- Generated preference pairs from engine evidence with no human labels: a
   deterministic parser extracts each claim and checks it against Stockfish's
   evaluation, principal variation and material arithmetic.
-- Raised format compliance from **1% to 100%** and verdict accuracy from **0.29
-  to 0.50**. DPO's gain over supervised fine-tuning (claim precision 0.5721 to
+- Raised format compliance from 1% to 100% and verdict accuracy from 0.29 to
+  0.50. DPO's gain over supervised fine-tuning (claim precision 0.5721 to
   0.5745) is too small for one 150-position run with a single seed to call real,
   and the repository says so.
 - The same verifier runs in training, evaluation and serving, so all three mean
@@ -111,52 +109,51 @@ human rating.
 
 `Python` · `Django` · `FastAPI` · `PostgreSQL` · `C++17` · `Vue 3` · `TypeScript` · `Docker`
 
-An order and inventory backend built around the parts that are easy to get
-quietly wrong.
+An order and inventory backend, built around the parts that are easy to get
+wrong without noticing.
 
 - Every stock write goes through one service that takes row-level locks in
-  **primary-key order**, so writers using it cannot oversell and cannot deadlock
-  on lock ordering. Proven by a test that releases **eight simultaneous
-  transactions against five units** through a barrier: exactly five succeed,
-  stock lands at zero, never negative.
+  primary-key order, so writers using it cannot oversell and cannot deadlock on
+  lock ordering. A test releases eight simultaneous transactions against five
+  units through a barrier: exactly five succeed and stock lands at zero, never
+  below.
 - Streamed order and stock events to a Vue dashboard over WebSockets fed by
   PostgreSQL `LISTEN/NOTIFY`, emitted inside the committing transaction, so no
-  event can exist for work that rolled back. This removes the dual-write race a
-  message broker would introduce, and the repository documents where the
+  event can exist for work that rolled back. That avoids the dual-write race a
+  message broker would introduce. The repository also documents where the
   guarantee stops: the channel is transactional but not durable.
-- Wrote the pick-path optimiser **twice**, in Python and C++17 via pybind11,
-  with a 150-case randomised parity suite asserting exact equality and a
-  Held-Karp solver bounding solution quality. The C++ engine is roughly **100x
-  faster** on large orders and releases the GIL while it runs.
-- Cut a ranked per-warehouse aggregation from about **105 ms to 4 ms** with a
+- Wrote the pick-path optimiser twice, in Python and C++17 via pybind11, with a
+  150-case randomised parity suite asserting exact equality and a Held-Karp
+  solver bounding solution quality. The C++ engine is roughly 100x faster on
+  large orders and releases the GIL while it runs.
+- Cut a ranked per-warehouse aggregation from about 105 ms to 4 ms with a
   partial covering index, documented with the query plans, including the first
   index design the planner correctly ignored.
-- Access control is a project-wide default rather than a per-view decision:
-  reads are open, writes need authentication unless demo mode is on, and
-  lifecycle transitions, which move stock, need it either way. Every environment
-  switch fails closed and CI fails the build on any Django deployment-check
-  warning.
+- Access control is set once for the whole project: reads are open; writes need
+  authentication unless demo mode is on; lifecycle transitions, which move
+  stock, need it either way. Every environment switch fails closed and CI fails
+  the build on any Django deployment-check warning.
 
 ---
 
 ## Education
 
-**MSc Statistics**, King's College London, from September 2026
+**MSc Statistics**, King's College London, 2026 to 2027
 
 *Modules include:* Machine Learning · Elements of Statistical Learning ·
 Computational Statistics · Bayesian Statistics, plus a 60-credit individual
 project.
 
-**BSc Mathematics with Data Science**, City, University of London. Awarded a 2:1
-(upper second-class honours)
+**BSc Mathematics with Data Science**, City St George's, University of London,
+2023 to 2026. Awarded a 2:1 (upper second-class honours).
 
-*Group dissertation: linear, non-linear and solitary waves, and their
-application to traffic flow.* Traffic jams behave as travelling waves: a
-disturbance propagates backwards through a queue while the cars themselves move
-forwards. The work covered the linear and non-linear wave equations,
-D'Alembert's solution, KdV solitary waves, the viscous and inviscid Burgers'
-equations, the method of characteristics, the Rankine-Hugoniot jump condition
-and conservation laws in integral and differential form.
+*Group dissertation on linear, non-linear and solitary waves and how they apply
+to traffic flow.* Traffic jams behave as travelling waves: a disturbance
+propagates backwards through a queue while the cars themselves move forwards.
+The work covered the linear and non-linear wave equations, D'Alembert's
+solution, KdV solitary waves, the viscous and inviscid Burgers' equations, the
+method of characteristics, the Rankine-Hugoniot jump condition and conservation
+laws in integral and differential form.
 
 *A-levels:* Mathematics · Further Mathematics · Computer Science
 
